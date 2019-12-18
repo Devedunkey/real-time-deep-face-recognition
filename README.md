@@ -24,4 +24,14 @@
 </br> (Note that, look carefully at the paths of files and folders in all .py)
 ## Result Video Link (Running Man Video)
 [runningman1.png](https://github.com/gochemjackets/real-time-deep-face-recognition/blob/master/runningman1.png)
+![runningman1.png](https://github.com/gochemjackets/real-time-deep-face-recognition/blob/master/runningman1.png)
+
+
+sdsdfds
+![runningman1.png](runningman1.png)
+
+
+https://github.com/bearsprogrammer/real-time-deep-face-recogniton/raw/master/realtime_demo_pic.jpg
+
+
 https://www.youtube.com/watch?v=bei4PLm1OiE&feature=youtu.be

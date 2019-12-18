@@ -22,7 +22,7 @@
 </br>Your own classifier is a ~.pkl file that loads the previously mentioned pre-trained model ('[20180402-114759](https://drive.google.com/open?id=1vXMsKEOcqyRBVEwwiBO8Mbyb8YFWuVIK)') and embeds the face for each person.<br/>All of these can be obtained by running 'Make_classifier.py'.<br/>
 * Finally, we load our own 'my_classifier.pkl' obtained above and then open the sensor and start recognition.
 </br> (Note that, look carefully at the paths of files and folders in all .py)
-## Result Video Link (Running Man Video)
+## Result Video Link (Running Man Face Recognition Video)
 https://www.youtube.com/watch?v=bei4PLm1OiE&feature=youtu.be
 
 ![runningman1.png](runningman1.png)
@@ -31,9 +31,16 @@ https://www.youtube.com/watch?v=bei4PLm1OiE&feature=youtu.be
 # Arduino Door Lock
 ![arduino1.png](arduino1.png)
 ![arduino2.png](arduino2.png)
-
 https://www.amazon.com/ARCELI-ESP8266-Development-Compatible-Arduino/dp/B07J2QKNHB
 
+## Result Video Link (Face Recognition Door Lock Video)
+![arduino1.png](arduino1.png)
+
+
+
+
+
+https://www.youtube.com/watch?v=JDSLfVQpbV0&feature=youtu.be
 
 
 

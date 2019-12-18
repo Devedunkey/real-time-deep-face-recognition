@@ -1,4 +1,4 @@
-# live face recogniton system
+# Live Face Recogniton
 
 ## Inspiration
 * [OpenFace](https://github.com/cmusatyalab/openface)

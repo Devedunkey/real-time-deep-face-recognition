@@ -23,4 +23,5 @@
 * Finally, we load our own 'my_classifier.pkl' obtained above and then open the sensor and start recognition.
 </br> (Note that, look carefully at the paths of files and folders in all .py)
 ## Result Video Link (Running Man Video)
+[runningman1.png](https://github.com/gochemjackets/real-time-deep-face-recognition/blob/master/runningman1.png)
 https://www.youtube.com/watch?v=bei4PLm1OiE&feature=youtu.be

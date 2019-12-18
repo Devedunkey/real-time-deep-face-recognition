@@ -22,3 +22,5 @@
 </br>Your own classifier is a ~.pkl file that loads the previously mentioned pre-trained model ('[20170511-185253.pb](https://drive.google.com/file/d/0B5MzpY9kBtDVOTVnU3NIaUdySFE/edit)') and embeds the face for each person.<br/>All of these can be obtained by running 'Make_classifier.py'.<br/>
 * Finally, we load our own 'my_classifier.pkl' obtained above and then open the sensor and start recognition.
 </br> (Note that, look carefully at the paths of files and folders in all .py)
+# Test Video Link
+https://www.youtube.com/watch?v=bei4PLm1OiE&feature=youtu.be

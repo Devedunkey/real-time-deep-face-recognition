@@ -1,0 +1,10 @@
+#!/bin/bash
+workon cv
+sleep 1
+
+for i in {0..1000000}
+do
+    python run_face_recognition.py
+    sleep 12h
+    sleep 30
+done

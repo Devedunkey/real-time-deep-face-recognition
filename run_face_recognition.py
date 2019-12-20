@@ -29,6 +29,16 @@ import threading
 
 tp = ThreadPool(processes=4)
 
+# Arduino Address URL
+ARDUINO_API = 'http://XXX.XXX.XXX.XXX/'
+# Please add your arduino access id
+ARDUINO_ID = ''
+# Please add your arduino access password
+ARDUINO_PASS = ''
+ARDUINO_FLAG = False
+ARDUINO_TIME = 5.0
+pool = Pool(10)
+flag_pool = Pool(5)
 
 path_collect = './collect_images'
 
@@ -45,54 +55,47 @@ def main():
 if __name__ == '__main__':
     main()
 
-# def arduino_timer():
-#     global ARDUINO_FLAG
-#     ARDUINO_FLAG = False
+def arduino_timer():
+    global ARDUINO_FLAG
+    ARDUINO_FLAG = False
 
 
-# def update_time_table(name):
-#     # try:
-#     name_arr = name.split(" ")
-#     if len(name_arr) > 0:
-#         name_str = name_arr[1]
-#
-#         time_res = pool.apply_async(entry_exit.update_time_sheet, [name_str])
-#         try:
-#             print('update_time_table', time_res.get(timeout=2))
-#
-#         except multiprocessing.TimeoutError:
-#             print("time table timeout error")
-    # except Exception as e:
-    #     pass
-    # finally:
+def update_time_table(name):
+    # try:
+    name_arr = name.split(" ")
+    if len(name_arr) > 0:
+        name_str = name_arr[1]
 
-# def command_door_open():
-#
-#     door_result = pool.apply_async(requests.get, [ARDUINO_API], dict(auth=(ARDUINO_ID, ARDUINO_PASS)))
-#
-#     try:
-#         print('open_door', door_result.get(timeout=1))
-#
-#     except multiprocessing.TimeoutError:
-#         print("Abort open_door timeout")
+        time_res = pool.apply_async(entry_exit.update_time_sheet, [name_str])
+        try:
+            print('update_time_table', time_res.get(timeout=2))
+
+        except multiprocessing.TimeoutError:
+            print("time table timeout error")
+
+def command_door_open():
+
+    door_result = pool.apply_async(requests.get, [ARDUINO_API], dict(auth=(ARDUINO_ID, ARDUINO_PASS)))
+
+    try:
+        print('open_door', door_result.get(timeout=1))
+
+    except multiprocessing.TimeoutError:
+        print("Abort open_door timeout")
 
 
-# def open_door(name):
-#     global ARDUINO_FLAG
-#     if ARDUINO_FLAG:
-#         return
-#     print('request open door')
-#     ARDUINO_FLAG = True
-#
-#     print("current time", datetime.datetime.now())
-#     # Open door through Aruduino
-#     command_door_open()
-#
-#     # Update 출 퇴근 기록부
-#     update_time_table(name)
-#
-#     # Update Display
-#     Timer(ARDUINO_TIME, arduino_timer).start()
+def open_door(name):
+    global ARDUINO_FLAG
+    if ARDUINO_FLAG:
+        return
+    ARDUINO_FLAG = True
+
+    # Open door by Aruduino
+    command_door_open()
+
+    # update excel sheet
+    # update_time_table(name)
+    Timer(ARDUINO_TIME, arduino_timer).start()
 
 
 def write_image_file(image_name, probability, frame):
@@ -116,18 +119,6 @@ def write_image_file(image_name, probability, frame):
 
 current_started = datetime.datetime.now()
 end = False
-# def do_something(second=1.0):
-#     global end
-#     if end:
-#         return
-#     timenow = datetime.datetime.now()
-#     elapsed_time2 = int(timenow.timestamp() - current_started.timestamp())
-#     if elapsed_time2 > 60 * 30:
-#         return
-#
-#     print('currnt time', datetime.datetime.now())
-#     open_door("exntu Young Yoo")
-#     threading.Timer(second , do_something, [second]).start()
 
 import time
 import os
@@ -170,7 +161,7 @@ def cleanup(number_of_days):
 
 def run():
     # app runs every 12 hours, so delete files whenever app start running
-    cleanup(30)
+    cleanup(30) # store images for 30 days
 
     print('Creating networks and loading parameters')
     with tf.Graph().as_default():
@@ -189,7 +180,6 @@ def run():
             input_image_size = 160
 
             print('Loading feature extraction model')
-            #modeldir = './20180402-185253/20170511-185253.pb'
             modeldir = './20180402-114759/20180402-114759.pb'
             facenet.load_model(modeldir)
 
@@ -280,7 +270,6 @@ def run():
                                 scaled_reshape.append(scaled[0].reshape(-1,input_image_size,input_image_size,3))
                                 feed_dict = {images_placeholder: scaled_reshape[0], phase_train_placeholder: False}
                                 emb_array[0, :] = sess.run(embeddings, feed_dict=feed_dict)
-                                predictions = []
                                 predictions = model.predict_proba(emb_array)
                                 best_class_indices = np.argmax(predictions, axis=1)
                                 predicted_probability = predictions[np.arange(len(best_class_indices)), best_class_indices]
@@ -294,7 +283,6 @@ def run():
 
                                 if len(best_class_indices) > 0 and predicted_probability[0] > 0.6:
                                     result_names = class_names[best_class_indices[0]]
-                                    diction = {}
 
                                     # write Images
                                     write_image_file(result_names, predicted_probability, frame)
@@ -303,7 +291,7 @@ def run():
                                     if result_names.lower() == 'unknown':
                                         g = 0; r = 255
                                     else:
-                                        print('%s: %.3f' % (result_names, predicted_probability))
+                                        print('%s: %.3f, %s' % (result_names, predicted_probability, datetime.datetime.now()))
                                         # open_door(result_names)
                                         cv2.rectangle(frame, (bb[i][0], bb[i][1]), (bb[i][2], bb[i][3]), (0, g, r), 2)    #boxing face
                                         #cv2.rectangle(frame, (endX, startY + int((endY - startY)*int((1-proba)*100)/100)), (endX + 10, endY), (0, 0, 255), cv2.FILLED)

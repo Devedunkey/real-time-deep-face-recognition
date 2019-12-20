@@ -25,12 +25,12 @@
 ## Result Video Link (Running Man Face Recognition Video)
 https://www.youtube.com/watch?v=bei4PLm1OiE&feature=youtu.be
 
-![runningman1.png](runningman1.png)
-![runningman2.png](runningman2.png)
+![runningman1.png](description/runningman1.png)
+![runningman2.png](description/runningman2.png)
 
 # Arduino Door Lock
-![arduino1.png](arduino1.png)
-![arduino2.png](arduino2.png)
+![arduino1.png](description/arduino1.png)
+![arduino2.png](description/arduino2.png)
 https://www.amazon.com/ARCELI-ESP8266-Development-Compatible-Arduino/dp/B07J2QKNHB
 
 ## Result Video Link (Face Recognition Door Lock Video)

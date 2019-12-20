@@ -12,20 +12,30 @@ import sys
 import math
 import pickle
 from sklearn.svm import SVC
+import shutil
 
+path_cassifier = './classifier'
+# Output directory name
+output_dir = os.path.expanduser(path_cassifier)
+# Check output images directory exits
+if os.path.isdir(output_dir):
+    shutil.rmtree(output_dir)
+# Create directory
+os.makedirs(path_cassifier)
 
 with tf.Graph().as_default():
 
     with tf.Session() as sess:
 
-        datadir = '/..Path to align face data../'
+        datadir = './output/'
         dataset = facenet.get_dataset(datadir)
         paths, labels = facenet.get_image_paths_and_labels(dataset)
+
         print('Number of classes: %d' % len(dataset))
         print('Number of images: %d' % len(paths))
-
         print('Loading feature extraction model')
-        modeldir = '/..Path to Pre-trained model../20170512-110547/20170512-110547.pb'
+        modeldir = './20180402-114759/20180402-114759.pb'
+
         facenet.load_model(modeldir)
 
         images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
@@ -48,7 +58,7 @@ with tf.Graph().as_default():
             feed_dict = {images_placeholder: images, phase_train_placeholder: False}
             emb_array[start_index:end_index, :] = sess.run(embeddings, feed_dict=feed_dict)
 
-        classifier_filename = '/..Path to save classifier../my_classifier.pkl'
+        classifier_filename = './classifier/my_classifier.pkl'
         classifier_filename_exp = os.path.expanduser(classifier_filename)
 
         # Train classifier
@@ -62,5 +72,6 @@ with tf.Graph().as_default():
         # Saving classifier model
         with open(classifier_filename_exp, 'wb') as outfile:
             pickle.dump((model, class_names), outfile)
+        print('classNames', class_names)
         print('Saved classifier model to file "%s"' % classifier_filename_exp)
-        print('Goodluck')
+        print('please run nohup bash script > script.log &')

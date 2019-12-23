@@ -33,8 +33,6 @@ https://www.youtube.com/watch?v=bei4PLm1OiE&feature=youtu.be
 ![arduino2.png](description/arduino2.png)
 https://www.amazon.com/ARCELI-ESP8266-Development-Compatible-Arduino/dp/B07J2QKNHB
 
-
-
 ## Result Video Link (Face Recognition Door Lock Video)
 https://youtu.be/JDSLfVQpbV0
 ![door_screenshot.png](door_screenshot.png)
